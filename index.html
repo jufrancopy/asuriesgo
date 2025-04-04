@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsuRiesgo | Salud Cardiovascular</title>
+    <meta name="description" content="AsuRiesgo - Programa de Prevención Cardiovascular en Paraguay">
+    <meta name="keywords" content="Asunción, factores de riesgo cardiovascular, salud cardiaca, prevención">
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:title" content="AsuRiesgo | Salud Cardiovascular">
+    <meta property="og:description" content="Programa de Prevención Cardiovascular en Paraguay">
+    <meta property="og:type" content="website">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #ff5722;
+            --light: #f5f5f5;
+            --dark: #333;
+            --gray: #757575;
+            --light-gray: #e0e0e0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a i {
+            font-size: 0.9rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 6rem 0 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/free-vector/heartbeat-line-white-background_1302-5623.jpg') center/cover;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: var(--primary-dark);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .flex-item {
+            flex: 1 1 calc(50% - 1rem);
+            min-width: 300px;
+        }
+
+        .risk-factors {
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .risk-factors::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/free-vector/heartbeat-pattern-background_53876-93189.jpg') center/cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .risk-factors-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .risk-factor-list {
+            list-style: none;
+        }
+
+        .risk-factor-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .risk-factor-list li::before {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 3px;
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .bmi-calculator {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .bmi-calculator:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 115, 232, 0.4);
+        }
+
+        .btn i {
+            font-size: 0.9rem;
+        }
+
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none;
+            background-color: rgba(26, 115, 232, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            margin-right: 5px;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-links {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 2.5rem 0;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .image-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            margin-top: 0.8rem;
+            font-style: italic;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Tooltip for BMI info */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* BMI scale indicator */
+        .bmi-scale {
+            display: flex;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bmi-scale-item {
+            flex: 1;
+            position: relative;
+        }
+
+        .bmi-scale-item::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+
+        .bmi-scale-item.underweight {
+            background-color: #2196F3;
+        }
+
+        .bmi-scale-item.normal {
+            background-color: #4CAF50;
+        }
+
+        .bmi-scale-item.overweight {
+            background-color: #FFC107;
+        }
+
+        .bmi-scale-item.obese1 {
+            background-color: #FF9800;
+        }
+
+        .bmi-scale-item.obese2 {
+            background-color: #FF5722;
+        }
+
+        .bmi-scale-item.obese3 {
+            background-color: #F44336;
+        }
+
+        .bmi-indicator {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 15px solid var(--dark);
+            transition: left 0.5s ease;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 0.5rem;
+            }
+
+            .flex-item {
+                flex: 1 1 100%;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 4rem 0 3rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .bmi-calculator {
+                padding: 1.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="logo_asuriesgo.png" alt="">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="#acerca-de"><i class="fas fa-info-circle"></i> Acerca de</a></li>
+                    <li><a href="#factores-riesgo"><i class="fas fa-heart"></i> Factores de Riesgo</a></li>
+                    <li><a href="#metas"><i class="fas fa-bullseye"></i> Metas de Salud</a></li>
+                    <li><a href="#calculadora"><i class="fas fa-calculator"></i> Calculadora IMC</a></li>
+                    <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content container">
+            <h1>Programa de Prevención Cardiovascular</h1>
+            <p>Conoce tus factores de riesgo y aprende a cambiar a un estilo de vida saludable</p>
+            <button class="cta-button" id="hero-button">
+                <i class="fas fa-heart"></i> Comenzar ahora
+            </button>
+        </div>
+    </section>
+
+    <section class="section" id="acerca-de">
+        <div class="container">
+            <h2 class="section-title">¿Qué es AsuRiesgo?</h2>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="card">
+                        <div class="feature-icon">
+                            <i class="fas fa-hospital-user"></i>
+                        </div>
+                        <p>AsuRiesgo es un Programa de Prevención Cardiovascular iniciado originalmente a partir
+                            del Estudio AsuRiesgo, que es el acrónimo de un estudio clínico sobre factores de riesgo
+                            cardiovascular realizado en una población ambulatoria de Asunción, Paraguay.</p>
+                    </div>
+
+                    <div class="image-container">
+                        <img src="https://img.freepik.com/free-photo/medical-stethoscope-with-paper-heart-cut-out_23-2148605001.jpg"
+                            alt="Salud cardiovascular">
+                        <p class="image-caption">Programa de prevención cardiovascular para una vida más saludable</p>
+                    </div>
+                </div>
+
+                <div class="flex-item">
+                    <div class="card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <p>AsuRiesgo es un estudio científico clínico prospectivo a largo alcance, registrado en el
+                            <a href="http://clinicaltrials.gov/show/NCT00486993" target="_blank">Clinical Trials</a>,
+                            con
+                            un protocolo verificado y autorizado por el departamento
+                            institucional de ética del Hospital Central del IPS, donde los pacientes fueron invitados a
+                            participar para a conocer sus factores de riesgo cardiovascular, siendo educados a cambiar a
+                            un
+                            estilo de vida saludable, previa firma del consentimiento informado correspondiente.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <p>El estudio AsuRiesgo se inició en el mes de mayo del 2006 en el Hospital Central del
+                            Instituto de
+                            Previsión Social <a href="http://www.ips.gov.py/" target="_blank">(IPS)</a>, Asunción,
+                            ciudad capital
+                            del Paraguay. La inclusión de pacientes fué culminada en el mes de julio del 2013.</p>
+
+                        <p>La publicación de los hallazgos en relación a prevalencias de factores de riesgo en
+                            una población adulta ambulatoria, en un hospital de un nivel terciario de atención en salud,
+                            se encuentran aquí: <a href="pubs.html" target="_blank">publicaciones</a>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <p>La evaluación a largo plazo de la intervención en el estudio continuarán hasta la compleción del
+                    protocolo original.</p>
+                <p>La coordinación general del estudio se encuentra en manos de la Dra. Graciela Chaves,
+                    la coordinación adjunta la lleva la Dra. Nidia Brites, el asesoramiento científico
+                    del mismo es llevado a cabo por el Dr. Derliz Mereles de la
+                    <a href="http://www.uni-heidelberg.de/index.html" target="_blank">Universidad de Heidelberg</a>,
+                    Alemania.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Objetivos de AsuRiesgo</h2>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <p>Según estimaciones de la Organización Mundial de la Salud (OMS), aproximádamente 17 millones
+                            de
+                            personas mueren
+                            cada año en el mundo por enfermedades cardiovasculares. Las enfermedades del corazón y los
+                            accidentes
+                            cerebrovasculares representan del 35 al 55 % de las 800.000 defunciones anuales que se
+                            registran
+                            en Latinoamérica
+                            <a href="http://www.who.int/es/index.html" target="_blank">(OMS)</a>.
+                        </p>
+
+                        <p>De acuerdo datos actuales publicados por el Ministerio de Salud Pública y Bienestar Social
+                            <a href="http://www.mspbs.gov.py/indicadoresdesalud/wp-content/uploads/2013/08/indicadores-2013_web.pdf"
+                                target="_blank">
+                                (Indicadores de Salud, Paraguay 2013)</a>, la proporción de muertes
+                            por enfermedades cardiovasculares, incluyendo a la enfermedad cerebrovascular y a la
+                            diabetes,
+                            fué del 24,9 %
+                            en el año 2011, constituyendo las causas más importantes de defunciones anuales en el pais.
+                        </p>
+
+                        <p>Las estadísticas no son buenas, pero dónde se encuentra el problema? O la solución
+                            del mismo?</p>
+                    </div>
+                </div>
+
+                <div class="flex-item">
+                    <div class="card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <p>Es muy importante el tomar conciencia de que las enfermedades cardiovasculares comparten
+                            muchos
+                            factores de
+                            riesgo, siendo por consecuencia prevenibles y/o modificables. Dicho de otro modo: la
+                            modificación
+                            de uno o varios factores de riesgo reducirá la discapacidad y la muerte provocadas por estas
+                            enfermedades.</p>
+
+                        <h3 class="section-subtitle"><i class="fas fa-flag-checkered"></i> AsuRiesgo se propuso por ello
+                        </h3>
+
+                        <p>estimar la prevalencia de los factores de riesgo clásicos, del sindrome metabólico y de los
+                            nuevos factores
+                            de riesgo de enfermedades cardiovasculares en una población
+                            ambulatoria urbana; además de evaluar en forma longitudinal el efecto a largo plazo de la
+                            educación
+                            para la modificación de factores de riesgo en la misma población.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section risk-factors" id="factores-riesgo">
+        <div class="risk-factors-content container">
+            <h2 class="section-title">¿Cuáles son los factores de riesgo cardiovascular?</h2>
+            <div class="flex-container">
+                <div class="flex-item card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3 class="section-subtitle"><i class="fas fa-edit"></i> Modificables</h3>
+                    <ul class="risk-factor-list">
+                        <li><i class="fas fa-tint"></i> Presión arterial alta (hipertensión arterial)</li>
+                        <li><i class="fas fa-chart-pie"></i> Colesterol malo (LDL) elevado</li>
+                        <li><i class="fas fa-chart-line"></i> Colesterol bueno (HDL) bajo</li>
+                        <li><i class="fas fa-syringe"></i> Diabetes</li>
+                        <li><i class="fas fa-weight"></i> Sobrepeso</li>
+                        <li><i class="fas fa-smoking"></i> Hábito de fumar</li>
+                        <li><i class="fas fa-couch"></i> Sedentarismo</li>
+                        <li><i class="fas fa-brain"></i> Estrés</li>
+                    </ul>
+                </div>
+
+                <div class="flex-item card">
+                    <div class="feature-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3 class="section-subtitle"><i class="fas fa-lock"></i> No modificables</h3>
+                    <ul class="risk-factor-list">
+                        <li><i class="fas fa-birthday-cake"></i> Edad</li>
+                        <li><i class="fas fa-venus-mars"></i> Sexo</li>
+                        <li><i class="fas fa-dna"></i> Herencia - antecedentes familiares</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="metas">
+        <div class="container">
+            <h2 class="section-title">Metas mínimas para la salud cardiovascular</h2>
+
+            <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3 class="section-subtitle"><i class="fas fa-running"></i> Hábitos</h3>
+                <ul class="risk-factor-list">
+                    <li><i class="fas fa-utensils"></i> Comer en forma saludable y con moderación</li>
+                    <li><i class="fas fa-walking"></i> Evitar la conducta sedentaria</li>
+                    <li><i class="fas fa-brain"></i> Evitar el estrés</li>
+                    <li><i class="fas fa-smoking-ban"></i> Dejar de fumar</li>
+                </ul>
+            </div>
+
+            <div class="flex-container">
+                <div class="flex-item card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="section-subtitle"><i class="fas fa-stethoscope"></i> Examen físico</h3>
+                    <ul class="risk-factor-list">
+                        <li><i class="fas fa-weight"></i> Peso ideal estimado por el índice de masa corporal (IMC) entre
+                            ≥18,5 y <25 kg/m²</li>
+                        <li><i class="fas fa-ruler"></i> Circunferencia abdominal en mujeres <88 cm</li>
+                        <li><i class="fas fa-ruler"></i> Circunferencia abdominal en hombres <102 cm</li>
+                        <li><i class="fas fa-heartbeat"></i> Presión arterial sistólica <130 mmHg</li>
+                        <li><i class="fas fa-heartbeat"></i> Presión arterial diastólica <80 mmHg</li>
+                    </ul>
+                </div>
+
+                <div class="flex-item card">
+                    <div class="feature-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="section-subtitle"><i class="fas fa-vial"></i> Examen laboratorial en ayunas</h3>
+                    <ul class="risk-factor-list">
+                        <li><i class="fas fa-chart-pie"></i> Colesterol total <200 mg/dL</li>
+                        <li><i class="fas fa-chart-pie"></i> Colesterol LDL <100 mg/dL</li>
+                        <li><i class="fas fa-chart-line"></i> Colesterol HDL en mujeres >50 mg/dL</li>
+                        <li><i class="fas fa-chart-line"></i> Colesterol HDL en hombres >40 mg/dL</li>
+                        <li><i class="fas fa-chart-bar"></i> Triglicéridos <150 mg/dL</li>
+                        <li><i class="fas fa-syringe"></i> Glucosa <100 mg/dL</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="feature-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <p>Metas mínimas para la prevención de enfermedades cardiovasculares para adultos
+                    independiente de su estado de salud. Estas metas
+                    deben ser consideradas con más énfasis como parte del tratamiento en aquellos pacientes que ya
+                    sufren de enfermedades cardiovasculares
+                    y diabetes. Las recomendaciones dadas por AsuRiesgo están basadas en las guías internacionales
+                    actuales
+                    para el diagnóstico, el tratamiento y la prevención de enfermedades cardiovasculares.</p>
+
+                <p>Meta para los hipertensos es una presión arterial en reposo menor a los 140/90 mmHg. Aquellos que
+                    sufren además de
+                    diabetes, la meta es mantener una presión arterial menor a los 130/80 mmHg.
+                    Con relación a la glucemia en diabéticos, la meta es mantener el nivel de
+                    hemoglobina glucosilada (HbA1c) entre 6,5% y 7%.</p>
+
+                <p>Más informaciones sobre los factores de riesgo cardiovascular, sobre las metas de salud
+                    cardiovascular,
+                    así como sobre algunos métodos para cambiar a un estilo de vida saludable en
+                    la sección <a href="metas.html" target="_blank">salud cardiovascular</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="calculadora">
+        <div class="container">
+            <h2 class="section-title">Calcule su índice de masa corporal (IMC)</h2>
+            <p class="text-center mb-3">¿Qué significa "peso ideal" de cada persona? La mejor forma de determinarlo es
+                midiendo
+                el llamado índice de masa corporal en kg/m².</p>
+
+            <div class="bmi-calculator">
+                <div class="feature-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3 class="section-subtitle"><i class="fas fa-weight"></i> Calculadora de IMC</h3>
+                <div class="form-group">
+                    <label for="weight"><i class="fas fa-weight-hanging"></i> Peso en Kg:</label>
+                    <input type="number" id="weight" min="20" max="250" placeholder="Ej: 70">
+                </div>
+
+                <div class="form-group">
+                    <label for="height"><i class="fas fa-ruler-vertical"></i> Estatura en cm:</label>
+                    <input type="number" id="height" min="100" max="250" placeholder="Ej: 170">
+                </div>
+
+                <button id="calculate-bmi" class="btn"><i class="fas fa-calculator"></i> Calcular IMC</button>
+
+                <div id="result" class="result">
+                    <p>Su IMC es: <span id="bmi-value" class="result-value">0</span> kg/m²</p>
+                    <p>De acuerdo a esto usted: <span id="bmi-comment"></span></p>
+
+                    <div class="bmi-scale">
+                        <div class="bmi-scale-item underweight" data-label="<18.5"></div>
+                        <div class="bmi-scale-item normal" data-label="18.5-24.9"></div>
+                        <div class="bmi-scale-item overweight" data-label="25-29.9"></div>
+                        <div class="bmi-scale-item obese1" data-label="30-34.9"></div>
+                        <div class="bmi-scale-item obese2" data-label="35-39.9"></div>
+                        <div class="bmi-scale-item obese3" data-label="≥40"></div>
+                        <div id="bmi-indicator" class="bmi-indicator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="#acerca-de"><i class="fas fa-info-circle"></i> Acerca de</a>
+                    <a href="#factores-riesgo"><i class="fas fa-heart"></i> Factores de Riesgo</a>
+                    <a href="#metas"><i class="fas fa-bullseye"></i> Metas de Salud</a>
+                    <a href="#calculadora"><i class="fas fa-calculator"></i> Calculadora IMC</a>
+                    <a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a>
+                </div>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <p>ClinicalTrials.gov Identifier: <a href="http://clinicaltrials.gov/show/NCT00486993"
+                        target="_blank">NCT00486993</a></p>
+                <p class="copyright">&copy; 2025 AsuRiesgo - Programa de Prevención Cardiovascular</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function () {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Hero button effect
+        document.getElementById('hero-button').addEventListener('click', function () {
+            Swal.fire({
+                title: '¡Bienvenido a AsuRiesgo!',
+                text: 'Comienza tu camino hacia una mejor salud cardiovascular',
+                icon: 'info',
+                confirmButtonText: 'Continuar',
+                confirmButtonColor: '#1a73e8',
+                backdrop: `
+                    rgba(0,0,0,0.4)
+                    url("https://media.giphy.com/media/l0HU20BZ6LbSEITza/giphy.gif")
+                    center top
+                    no-repeat
+                `
+            });
+        });
+
+        // BMI Calculator Function
+        document.addEventListener('DOMContentLoaded', function () {
+            const calculateBtn = document.getElementById('calculate-bmi');
+            const resultDiv = document.getElementById('result');
+            const bmiValue = document.getElementById('bmi-value');
+            const bmiComment = document.getElementById('bmi-comment');
+
+            calculateBtn.addEventListener('click', function () {
+                const weight = parseFloat(document.getElementById('weight').value);
+                const height = parseFloat(document.getElementById('height').value) / 100; // Convert to meters
+
+                if (!weight || !height || weight <= 20 || weight >= 250 || height <= 1.00 || height >= 2.50) {
+                    alert("Valor incorrecto. Favor rever y volver a ingresar!");
+                    return;
+                }
+
+                const bmi = Math.round(weight / (height * height));
+                bmiValue.textContent = bmi;
+
+                if (bmi < 18) {
+                    bmiComment.textContent = "está debajo del peso mínimo";
+                } else if (bmi >= 18 && bmi <= 24.9) {
+                    bmiComment.textContent = "tiene su peso ideal";
+                } else if (bmi >= 25 && bmi <= 29.9) {
+                    bmiComment.textContent = "tiene sobrepeso";
+                } else if (bmi >= 30 && bmi <= 34.9) {
+                    bmiComment.textContent = "tiene obesidad grado I";
+                } else if (bmi >= 35 && bmi <= 39.9) {
+                    bmiComment.textContent = "tiene obesidad grado II";
+                } else if (bmi > 40) {
+                    bmiComment.textContent = "tiene obesidad extrema (grado III)";
+                }
+
+                resultDiv.classList.add('show');
+            });
+        });
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
