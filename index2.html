@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsuRiesgo | Noticias sobre Salud Cardiovascular</title>
+    <meta name="description" content="Noticias y publicaciones sobre salud cardiovascular y prevención de riesgos">
+    <meta name="keywords" content="salud cardiovascular, obesidad, dieta saludable, IMC, prevención">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f5f5;
+        }
+        
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo {
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        nav li {
+            margin: 0 10px;
+        }
+        
+        nav a {
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Main content */
+        main {
+            padding: 2rem 0;
+            background-color: white;
+        }
+        
+        .article {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article:last-child {
+            border-bottom: none;
+        }
+        
+        .article-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content {
+            line-height: 1.8;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight-box {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            margin: 1.5rem 0;
+        }
+        
+        .bmi-calculator {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 2rem 0;
+        }
+        
+        .bmi-calculator h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .bmi-result {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 10px;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 1.5rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+    
+    <script>
+        function calculateBMI() {
+            var weight = document.getElementById('weight').value;
+            var height = document.getElementById('height').value / 100; // Convert to meters
+            
+            if (weight <= 20 || weight >= 250 || height <= 1.00 || height >= 2.50) {
+                alert("Valor incorrecto. Favor rever y volver a ingresar!");
+                return false;
+            }
+            
+            var bmi = (weight / (height * height)).toFixed(1);
+            var result = document.getElementById('bmi-result');
+            var comment = document.getElementById('bmi-comment');
+            
+            result.value = bmi;
+            
+            if (bmi < 18) {
+                comment.value = "está debajo del peso mínimo";
+            } else if (bmi >= 18 && bmi <= 24.9) {
+                comment.value = "tiene su peso ideal";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                comment.value = "tiene sobrepeso";
+            } else if (bmi >= 30 && bmi <= 34.9) {
+                comment.value = "tiene obesidad grado I";
+            } else if (bmi >= 35 && bmi <= 39.9) {
+                comment.value = "tiene obesidad grado II"; 
+            } else if (bmi > 40) {
+                comment.value = "tiene obesidad extrema (grado III)";
+            }
+            
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="asuriesgo_banner_2018.jpg" alt="AsuRiesgo - inicio" title="AsuRiesgo - inicio">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Noticias</a></li>
+                    <li><a href="acerca.html">Acerca de</a></li>
+                    <li><a href="metas.html">Salud cardiovascular</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="impressum.html">Impressum</a></li>
+                    <li><a href="datenschutz.html">Datenschutz</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="sub-nav">
+            <p>
+                <a href="index.html">Noticias</a> | 
+                <a href="pubs.html">Publicaciones</a> | 
+                <a href="asunoticias.html">AsuNoticias</a> | 
+                <a href="https://www.facebook.com/asuriesgo/" target="_blank">AsuRiesgo Facebook</a> | 
+                <a href="https://twitter.com/asuriesgo" target="_blank">AsuRiesgo Twitter</a>
+            </p>
+        </div>
+
+        <h1>Noticias</h1>
+
+        <!-- Article 1 -->
+        <article class="article">
+            <div class="article-header">
+                <h2 class="article-title" id="triptico">Folleto tríptico de AsuRiesgo: la alimentación saludable</h2>
+                <div class="article-meta">15 de agosto de 2018 | 1 de octubre 2023</div>
+            </div>
+            
+            <div class="article-content">
+                <div class="download-options">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <a href="http://asuriesgo.de/asuriesgo_triptico.pdf" target="_blank"><img src="pdf.jpg" alt="PDF" width="50" height="60"></a>
+                        <span style="margin-left: 1rem;">Bajar el tríptico en PDF para imprimir</span>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <a href='https://play.google.com/store/apps/details?id=appinventor.ai_ortsruf.AsuRiesgo&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank">
+                            <img width="172" height="67" alt='Disponible en Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/es-419_badge_web_generic.png'/>
+                        </a>
+                        <span style="margin-left: 1rem;">Bajar la aplicación con el relatorio en guaraní sobre el contenido del tríptico</span>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center;">
+                        <a href="http://asuriesgo.de/app/index.html" target="_blank"><img src="qr-code.png" alt="QR Code" width="65" height="65"></a>
+                        <span style="margin-left: 1rem;">Bajar aquí para productos de otras marcas (Apple etc.)</span>
+                    </div>
+                </div>
+                
+                <p>La alimentación saludable, llamada también dieta saludable, es aquella que ayuda a mejorar y mantener un nivel óptimo todos los procesos biológicos corporales, con el objeto de prevenir enfermedades, así como de contribuir en el tratamiento de las mismas. Incluye la ingesta adecuada y equilibrada de nutrientes, así como de vitaminas, polifenoles y minerales, además evita la exposición a elementos y productos tóxicos, sean ellos de origen natural o industrial.</p>
+                
+                <p>La alimentación saludable mejora la calidad de vida y disminuye el riesgo de adquirir enfermedades como la obesidad, enfermedades cardiovasculares, enfermedades cerebrovasculares, dislipidemia, diabetes tipo 2, hipertensión arterial, osteoporosis, anemia, infecciones y algunos tipos de cáncer como el de colon.</p>
+                
+                <p>En el análisis de las prevalencias de factores modificables de riesgo cardiovascular en el estudio AsuRiesgo se encuentran valores muy elevados de sobrepeso y obesidad. Mientras que se observa una prevalencia baja de pacientes con bajo peso en esta población, la <a href="http://iris.paho.org/xmlui/bitstream/handle/123456789/10048/v38n2a06.pdf?sequence=1&isAllowed=y" target="_blank">prevalencia</a> de pacientes con peso corporal por encima de lo normal es excesívamente elevada, llegando a afectar el 80,4 % de las mujeres y un 78,1 % de los hombres.</p>
+                
+                <p>El sobrepeso y la obesidad aumentan el riesgo a contraer enfermedades como la diabetes, el cáncer y las enfermedades del sistema cardiocirculatorio (p.e. infartos, derrames cerebrales), sobrecarga las articulaciones llevando a producir problemas ósteoarticulares, dolor crónico, restringiendo la motilidad, produciendo un círculo vicioso (falta de actividad física - subida de peso). La misma baja la autoestima aumentando la ansiedad, generando así otro círculo vicioso (obesidad - ansiedad - aumento de ingesta, especialmente de alimentos con azúcar).</p>
+                
+                <p>La obesidad en sí es considerada como una enfermedad crónica, actualmente alcanzando proporciones epidémicas, pero existe un mensaje positivo, alentador: la misma es prevenible y tratable.</p>
+                
+                <p>AsuRiesgo presenta con este folleto tríptico un resumen conteniendo los conceptos básicos actuales relacionados con la alimentación saludable. Con la aplicación móvil se presenta además por primera vez un relatorio en guaraní del contenido textual en español, con el objeto de llegar hasta todos los rincones del país, incluyendo las regiones limítrofes en las cuáles el guaraní sigue siendo un idioma de entendimiento comunitario.</p>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0;">
+                    <div style="flex: 0 0 48%; margin-bottom: 1rem;">
+                        <img src="asuriesgo_triptico_pagina_1.jpg" alt="Tríptico página 1" width="100%">
+                    </div>
+                    <div style="flex: 0 0 48%;">
+                        <div class="highlight-box">
+                            <h3>Principios generales (1)</h3>
+                            <ul>
+                                <li>coma con moderación</li>
+                                <li>3 principales comidas al día (desayuno, almuerzo, cena)</li>
+                                <li>5 porciones de verduras y/o frutas</li>
+                                <li>disminuya la ingestión de carnes rojas</li>
+                                <li>evite grasas animales</li>
+                                <li>consuma aceites vegetales</li>
+                                <li>evite el azúcar</li>
+                                <li>disminuya la ingestión de harinas refinadas</li>
+                                <li>consuma harinas/panes integrales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0;">
+                    <div style="flex: 0 0 48%; margin-bottom: 1rem;">
+                        <div class="highlight-box">
+                            <h3>Principios generales (2)</h3>
+                            <ul>
+                                <li>beba agua potable en forma abundante</li>
+                                <li>evite bebidas azucaradas</li>
+                                <li>cocine | evite alimentos procesados — industrializados</li>
+                                <li>consuma productos lácteos con moderación</li>
+                                <li>reduzca la sal en la alimentación</li>
+                                <li>consulte con su médico si tiene: diabetes, obesidad, hipertensión, cáncer u otra enfermedad, o si está embarazada</li>
+                            </ul>
+                            
+                            <h3 style="margin-top: 1.5rem;">Consejos adicionales</h3>
+                            <ul>
+                                <li>no fume ni esté cerca del que fuma</li>
+                                <li>actividad física recreativa diaria</li>
+                                <li>limite el consumo de alcohol</li>
+                                <li>no consuma drogas o estupefacientes</li>
+                                <li>consulte con su médico antes de cambiar o suspender medicamentos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="flex: 0 0 48%;">
+                        <img src="asuriesgo_triptico_pagina_2.jpg" alt="Tríptico página 2" width="100%">
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0;">
+                    <div style="flex: 0 0 48%; margin-bottom: 1rem;">
+                        <img src="asuriesgo_triptico_pagina_3.jpg" alt="Tríptico página 3" width="100%">
+                    </div>
+                    <div style="flex: 0 0 48%;">
+                        <div class="highlight-box">
+                            <h3>Una porción</h3>
+                            <p>Una porción es variable, depende del tipo de alimento, edad, estado nutritivo, embarazo, etc. Consulte con su especialista.</p>
+                            <p>Ejemplos:</p>
+                            <ul>
+                                <li>carne o pescado: palma de mano</li>
+                                <li>2 huevos (por día)</li>
+                                <li>frutas o verduras: un puño</li>
+                                <li>jugo de frutas: medio vaso</li>
+                                <li>leche: un vaso</li>
+                                <li>queso: medio puño</li>
+                                <li>yogurt: medio vaso</li>
+                                <li>ensalada: dos puños</li>
+                                <li>arroz: media taza</li>
+                                <li>rebanada de pan integral: mano extendida</li>
+                                <li>nueces | maní: medio puño</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0;">
+                    <div style="flex: 0 0 48%; margin-bottom: 1rem;">
+                        <div class="highlight-box">
+                            <h3>La alimentación debe ser</h3>
+                            <ul>
+                                <li>equilibrada y variada</li>
+                                <li>combine los colores de frutas y hortalizas</li>
+                            </ul>
+                            
+                            <h3 style="margin-top: 1.5rem;">Hortalizas | frutas</h3>
+                            <p>son parte fundamental de la alimentación diaria por ser fuente de</p>
+                            <ul>
+                                <li>vitaminas</li>
+                                <li>polifenoles</li>
+                                <li>minerales</li>
+                                <li>carbohidratos complejos</li>
+                                <li>fibras</li>
+                                <li>proteinas vegetales (p.e. en arveja, porotos, soja, nueces, quinoa, chia, amaranto, garbanzos)</li>
+                            </ul>
+                            <p>todos compuestos indispensables para la salud</p>
+                        </div>
+                    </div>
+                    <div style="flex: 0 0 48%;">
+                        <img src="asuriesgo_triptico_pagina_4.jpg" alt="Tríptico página 4" width="100%">
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0;">
+                    <div style="flex: 0 0 48%; margin-bottom: 1rem;">
+                        <img src="asuriesgo_triptico_pagina_5.jpg" alt="Tríptico página 5" width="100%">
+                    </div>
+                    <div style="flex: 0 0 48%;">
+                        <div class="highlight-box">
+                            <h3>Peso ideal</h3>
+                            <p>Qué significa "peso ideal" de cada persona? Una forma de determinarlo es midiendo el llamado índice de masa corporal (IMC) en kg/m².</p>
+                            <p>A una estatura determinada corresponde un peso máximo ideal, el mismo tiene el valor aproximado de 23 kg/m². En valores absolutos se considera peso normal a un IMC entre 18,5 y 24,9 kg/m².</p>
+                            <p>Por ejemplo, para una estadura de<br>
+                            1,50 m correspondería un peso máximo de 50 kg<br>
+                            1,60 m aprox. 60 kg</p>
+                            
+                            <p><a href="http://asuriesgo.de/#IndGlic" target="_blank">Verificar su índice de masa corporal (IMC) aquí.</a></p>
+                            
+                            <h3 style="margin-top: 1.5rem;">Abdomen saludable</h3>
+                            <p>El IMC tiene la limitación de que no puede diferenciar entre el tejido adiposo y el muscular o el óseo. Por otro lado se ha demostrado que la obesidad central tiene mayor relación a las enfermedades cardiovasculares, en el contexto del llamado sindrome metabólico.</p>
+                            <p>Una circumferencia abdominal saludable es en</p>
+                            <ul>
+                                <li>mujeres menor a 88 cm y</li> 
+                                <li>hombres menor a 102 cm</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 2rem 0;">
+                    <div style="flex: 0 0 48%; margin-bottom: 1rem;">
+                        <div class="highlight-box">
+                            <h3>Disponibilidad</h3>
+                            <p>Las frutas frescas, verduras y legumbres tienen su temporada. Limite el consumo de productos envasados.</p>
+                            <p>Aquí algunos ejemplos:</p>
+                            
+                            <h4>Frutas</h4>
+                            <p>Acerola<br>
+                            Aguacate<br>
+                            Banana<br>
+                            Chirimoya<br>
+                            Frutilla<br>
+                            Guayaba<br>
+                            Kiwi</p>
+                            
+                            <h4>Verduras</h4>
+                            <p>Acelga<br>
+                            Alcachofa<br>
+                            Apio<br>
+                            Batata<br>
+                            Berenjena<br>
+                            Berro<br>
+                            Brócoli</p>
+                            
+                            <h4>Legumbres</h4>
+                            <p>Arveja<br>
+                            Chaucha<br>
+                            Garbanzos<br>
+                            Lenteja<br>
+                            Maní<br>
+                            Porotos<br>
+                            Soja</p>
+                        </div>
+                    </div>
+                    <div style="flex: 0 0 48%;">
+                        <img src="asuriesgo_triptico_pagina_6.jpg" alt="Tríptico página 6" width="100%">
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Referencias</h3>
+                    <p>Chaves G, Brítez N, Maciel V, Klinkhof A, Mereles D. Prevalencia de factores de riesgo cardiovascular en una población adulta ambulatoria urbana: estudio AsuRiesgo, Paraguay. <a href="https://scielosp.org/pdf/rpsp/2015.v38n2/136-143/es" target="_blank">Revista Panamericana de Salud Pública.</a> 2015;38:136-43.</p>
+                    
+                    <p>Chaves G, Britez N, Munzinger J, Uhlmann L, Gonzalez G, Oviedo G, Chaparro V, Achon O, Bruckner T, Kieser M, Katus HA, Mereles D. Education to a Healthy Lifestyle Improves Symptoms and Cardiovascular Risk Factors - AsuRiesgo Study. <a href="http://www.scielo.br/pdf/abc/v104n5/0066-782X-abc-20150021.pdf" target="_blank">Arquivos Brasileiros de Cardiologia.</a> 2015;104:347-55.</p>
+                    
+                    <p>Chaves G, Britez N, Oviedo G, Gonzalez G, Italiano C, Blanes M, Sandoval G, Mereles D. Heavy drinkers of Ilex paraguariensis beverages show lower lipid profiles but higher body weight. <a href="http://onlinelibrary.wiley.com/doi/10.1002/ptr.6041/abstract?" target="_blank">Phytotherapy Research.</a> 2018;1-9.</p>
+                    
+                    <p><a href="http://asuriesgo.de/index.html#guias2015" target="_blank">Nuevas guias 2015-2020 de alimentación</a> para la población de USA: implicancias para los pacientes del Programa AsuRiesgo y para la población en general de Paraguay</p>
+                </div>
+            </div>
+        </article>
+        
+        <hr>
+        
+        <!-- Article 2 -->
+        <article class="article">
+            <div class="article-header">
+                <h2 class="article-title" id="ilex">Relación del consumo de yerba mate con el perfil de lípidos en sangre y con la obesidad</h2>
+                <div class="article-meta">8 de febrero de 2018</div>
+            </div>
+            
+            <div class="article-content">
+                <p>Un análisis <a href="http://onlinelibrary.wiley.com/doi/10.1002/ptr.6041/abstract?" target="_blank">publicado hoy</a> por el grupo de investigación del estudio AsuRiesgo abre una discusión con respecto al consumo de bebidas derivadas de la yerba mate (Ilex paraguariensis). Mientras diversos estudios científicos de investigación básica, así como ensayos clínicos, sugieren que la yerba mate es capaz de inducir pérdida de peso, en este análisis en una gran población de pacientes se ha observado que las personas que beben más de 1 litro diariamente tienen mejores niveles de lípidos en sangre, pero presentan en forma paradójica un mayor peso corporal que aquellos que beben menos de esa cantidad al día. Este efecto fué más acentuado en los bebedores de tereré.</p>
+                
+                <img src="ilex.jpg" alt="Yerba mate en proceso de elaboración" style="max-width: 100%;">
+                <p class="article-meta">Yerba mate en proceso de elaboración (CC) <a href="https://commons.wikimedia.org/wiki/File:Misiones_-_Yerba_Mate_Canchada.jpg" target="_blank">Leandro Kibisz</a></p>
+                
+                <p>El estudio AsuRiesgo fué un ensayo clínico prospectivo monocéntrico abierto en el cual se estimó la prevalencia de factores de riesgo cardiovascular, recibiendo los participantes además como intervención un programa educativo para aumentar el conocimiento sobre la salud cardiovascular, acompañado de diferentes estrategias con el fin de cambiar hábitos hacia un estilo de vida saludable.</p>
+                
+                <p>El estudio incluyó a una población no seleccionada ambulatoria de ambos sexos, de 18 y más años de edad, independiente del diagnóstico clínico y antecedentes patológicos, que acudió a los consultorios del Hospital Central del Instituto de Previsión Social, en Asunción, Paraguay. Se invitó a participar a todos los pacientes en las salas de espera del hospital. Los que aceptaron fueron instruidos sobre su participación y firmaron el consentimiento informado antes de ingresar en el mismo.</p>
+                
+                <p>Los pacientes fueron evaluaron desde el punto de vista clínico, incluyendo una anamnesis personal y familiar. Se recabaron además datos sobre las costumbres alimenticias, hábito de fumar, el nivel de actividad física diaria, grados de estrés psicológico. En relación al consumo de bebidas a base de la yerba mate fueron evaluados los siguientes parámetros: tipo de bebida, cantidad y frecuencia. Además, se obtuvieron los siguientes datos antropométricos: peso, estatura, índice de masa corporal, circunferencia abdominal y presión arterial sistémica en reposo. Se solicitaron análisis de laboratorio básicos en ayunas: glucemia, colesterol total, colesterol LDL, HDL y triglicéridos.</p>
+                
+                <p>En este análisis fueron evaluados los datos de más de 18 mil pacientes de ambos sexos, con edad promedio de 51 años (68% mujeres). La prevalencia conjunta de sobrepeso y obesidad fué del 80%, con 60% de pacientes llevando una vida sedentaria. La prevalencia global del consumo de yerba mate, independiente del tipo, frequencia y cantidad fué elevada (91%).</p>
+                
+                <p>Tereré, mate y cocido consumían el 36% de pacientes, tereré y mate un 28%, tereré solo un 15%, tereré y cocido un 9%, cocido solo un 5%, mate y cocido un 4%, y mate solo un 4% de pacientes. Entre aquellos que consumían más de 1 litro al día bebían tereré, mate y cocido un 93% de pacientes, tereré y mate un 89%, mate y cocido un 13%, mate solo un 9%, cocido solo un 0,3%.</p>
+                
+                <p>Pacientes con alto consumo (más de 1 litro por día) mostraton un nivel menor de colesterol total y de colesterol LDL en sangre en comparación a aquellos que bebían menos de 1 litro al día. El peso corporal, en cambio, fué mayor que en los bebedores de cantidades moderadas.</p>
+                
+                <img src="yerba_abc_color_viernes_16.marzo.2018.jpg" alt="Artículo ABC Color" style="max-width: 100%;">
+                <p class="article-meta"><a href="http://www.abc.com.py/especiales/fin-de-semana/yerba-mate-menos-colesterol-mas-peso-corporal-1683990.html" target="_blank">© abc color</a></p>
+                
+                <p>La glucosa en ayunas de los pacientes con alto consumo fué menor y la ingesta de carbohidratos en la dieta fué mayor, con lo que se concluye que la posible causa de esta paradoja tiene orígen en el efecto hipoglucemiante de la yerba mate, llevando a una mayor ingestión de carbohidratos en forma compensatoria.</p>
+                
+                <img src="yerba-mate-plantacion.jpg" alt="Plantación de yerba mate" style="max-width: 100%;">
+                <p class="article-meta">Plantación de yerba mate <a href="http://www.flickr.com/photos/flissphil/5330276356/lightbox/" target="_blank">(cc) Phillip Capper</a></p>
+                
+                <p>Numerosos efectos biológicos de la yerba mate demostrados en estudios científicos fueron publicados con anterioridad. Estos efectos son atribuidos al alto contenido en polifenoles, flavonoides (quercetin, rutin), así como ácidos fenólicos (ácido clorogénico, ácido cafeico). La yerba mate es también rica en cafeina, xantinas, saponinas, así como diversos minerales. Los resultados publicados evidencian diferentes propiedades farmacológicas: actividad antioxidante, efectos protectivos contra el daño al ADN, efecto vasodilatador, inhibition de la glicación y de la atherosclerosis, mejoramiento de la tolerancia de glucosa, efectos antiinflamatorios, propiedades quemoprotectivas, efectos termogénicos, mejoramiento de la resistencia a la insulina y efectos antiobesidad. Este último efecto, así como los efectos estimulantes del sistema nervioso central, han disparado el marketing y las ventas de productos de la yerba mate en los EE.UU. y Europa.</p>
+                
+                <p>Los resultados de este análisis del estudio AsuRiesgo no deben inducir a la conclusión rápida de que la yerba mate "engorda". Estos dasos sí confirman el hecho tradicionalmente conocido, de que la yerba mate abre el apetito, de que el tereré puede incluso provocar desmayos si se ingiere en gran cantidad con el estómago vacío. La costumbre del "tereré rupá" es comentado aquí por primera vez en una publicación científica mundial. Con esta publicación se abre una discusión entre los investigadores de la yerba mate, así como en los proveedores en el campo de salud, entre los que se cuentan a los nutricionistas, médicos generales y diabetólogos. Se sugiere implementar maniobras conjuntas al encarar el tema de la obesidad en poblaciones de gran consumo de bebidas de la yerba mate. Se plantea además la conducción de un estudio prospectivo bien diseñado para confirmar el valor antiobesidad de la misma, ayudando a definir la mejor estrategia en el manejo del peso corporal en personas de gran consumo de bebidas a base de yerba mate.</p>
+                
+                <div class="highlight-box">
+                    <h3>Referencias</h3>
+                    <p>Bracesco N, Sanchez AG, Contreras V, Menini T, Gugliucci A. Recent advances on Ilex paraguariensis research: minireview. <a href="https://www.sciencedirect.com/science/article/pii/S0378874110004320?via%3Dihub" target="_blank">Journal of Ethnopharmacology.</a> 2011;136:378-84.</p>
+                    
+                    <p>Chaves G, Brítez N, Maciel V, Klinkhof A, Mereles D. Prevalencia de factores de riesgo cardiovascular en una población adulta ambulatoria urbana: estudio AsuRiesgo, Paraguay. <a href="https://scielosp.org/pdf/rpsp/2015.v38n2/136-143/es" target="_blank">Revista Panamericana de Salud Pública.</a> 2015;38:136-43.</p>
+                    
+                    <p>Chaves G, Britez N, Munzinger J, Uhlmann L, Gonzalez G, Oviedo G, Chaparro V, Achon O, Bruckner T, Kieser M, Katus HA, Mereles D. Education to a Healthy Lifestyle Improves Symptoms and Cardiovascular Risk Factors - AsuRiesgo Study. <a href="http://www.scielo.br/pdf/abc/v104n5/0066-782X-abc-20150021.pdf" target="_blank">Arquivos Brasileiros de Cardiologia.</a> 2015;104:347-55.</p>
+                    
+                    <p>Chaves G, Britez N, Oviedo G, Gonzalez G, Italiano C, Blanes M, Sandoval G, Mereles D. Heavy drinkers of Ilex paraguariensis beverages show lower lipid profiles but higher body weight. <a href="http://onlinelibrary.wiley.com/doi/10.1002/ptr.6041/abstract?" target="_blank">Phytotherapy Research.</a> 2018;1-9.</p>
+                    
+                    <p>Gambero A, Ribeiro ML. The positive effects of yerba mate (Ilex paraguariensis) in obesity. <a href="http://www.mdpi.com/2072-6643/7/2/730/htm" target="_blank">Nutrients.</a> 2015;7:730-750.</p>
+                    
+                    <p>Heck CI, de Mejia EG. Yerba Mate Tea (Ilex paraguariensis): a comprehensive review on chemistry, health implications, and technological considerations. <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1750-3841.2007.00535.x/abstract?" target="_blank">Journal of Food Science.</a> 2007;72:R138-51.</p>
+                </div>
+            </div>
+        </article>
+        
+        <hr>
+        
+        <!-- BMI Calculator -->
+        <div class="bmi-calculator">
+            <h3>Calculadora de IMC (Índice de Masa Corporal)</h3>
+            <form onsubmit="return calculateBMI()">
+                <div class="form-group">
+                    <label for="weight">Peso en Kg:</label>
+                    <input type="number" id="weight" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="height">Estatura en cm:</label>
+                    <input type="number" id="height" required>
+                </div>
+                
+                <button type="submit">Calcular IMC</button>
+                
+                <div class="form-group bmi-result">
+                    <label>Su IMC es:</label>
+                    <input type="text" id="bmi-result" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>De acuerdo a esto usted:</label>
+                    <input type="text" id="bmi-comment" readonly style="width: 100%;">
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Noticias</a>
+                <a href="acerca.html">Acerca de</a>
+                <a href="metas.html">Salud cardiovascular</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+            </div>
+            <p class="copyright">ClinicalTrials.gov Identifier: <a href="http://clinicaltrials.gov/show/NCT00486993" target="_blank">NCT00486993</a></p>
+            <p class="copyright">© 2023 AsuRiesgo. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
